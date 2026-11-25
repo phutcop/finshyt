@@ -1,0 +1,171 @@
+.home-page {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  min-height: min(690px, 78vh);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.home-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(3rem, 6vw, 6rem);
+}
+
+.home-kicker {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+}
+
+.home-hero h1 {
+  max-width: 700px;
+  margin: 1.4rem 0 1.35rem;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  line-height: 1.05;
+}
+
+.home-hero-copy > p {
+  max-width: 510px;
+  color: var(--text-muted);
+  font-size: clamp(1rem, 1.15vw, 1.1rem);
+  line-height: 1.65;
+}
+
+.home-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.35rem;
+  margin-top: 2.2rem;
+}
+
+.home-actions .btn {
+  border-radius: 8px;
+  padding: 0.85rem 1.25rem;
+}
+
+.home-hero-visual {
+  position: relative;
+  min-height: 450px;
+  overflow: hidden;
+  background: #202943;
+}
+
+.home-hero-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 50%;
+}
+
+.home-process {
+  padding: 3.5rem clamp(2rem, 6vw, 6rem);
+  border-bottom: 1px solid var(--border-soft);
+  text-align: center;
+}
+
+.home-process h2 {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.home-workflow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5vw;
+  font-family: var(--font-display);
+}
+
+.home-workflow-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+}
+
+.home-workflow button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: clamp(1.2rem, 3.5vw, 3.2rem);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.home-workflow:has(.is-active) button:not(.is-active) {
+  opacity: 0.35;
+}
+
+.home-workflow button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
+}
+
+.home-workflow-arrow {
+  color: var(--ink);
+  font-size: 1rem;
+  opacity: 0.5;
+}
+
+.home-workflow-description {
+  min-height: 2.5rem;
+  max-width: 620px;
+  margin: 2rem auto 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 1050px) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.75fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .home-hero {
+    display: flex;
+    flex-direction: column;
+  }
+  .home-hero-copy {
+    padding: 3.4rem 1.3rem 2.5rem;
+  }
+  .home-hero h1 {
+    font-size: clamp(2.5rem, 10vw, 3.2rem);
+  }
+  .home-hero-visual {
+    min-height: 230px;
+    max-height: 300px;
+  }
+  .home-process {
+    padding: 3rem 1.3rem 4rem;
+  }
+  .home-workflow {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .home-workflow-item {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .home-workflow-arrow {
+    transform: rotate(90deg);
+    margin: 0.5rem 0;
+  }
+}

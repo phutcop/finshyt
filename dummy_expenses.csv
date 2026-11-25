@@ -1,0 +1,8 @@
+Transaction Date,Transaction Amount,Description,Vendor,Department,Expense Category
+2026-10-01,150.00,Team Lunch,Local Deli,Engineering,Meals & Entertainment
+2026-10-02,45.50,Office Supplies,Staples,Operations,Office Rent & Facilities
+2026-10-03,1200.00,Monthly Server Costs,Amazon Web Services,Engineering,Cloud Services
+2026-10-04,300.00,Facebook Ads,Meta,Marketing,Marketing & Advertising
+2026-10-05,50.00,Travel to Client,Uber,Sales,Travel & Transportation
+2026-10-06,2000.00,Legal Consultation,Smith & Co,Operations,Professional Services
+2026-10-07,85.00,Slack Subscription,Slack,Engineering,Software Subscriptions

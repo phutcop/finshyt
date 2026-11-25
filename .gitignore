@@ -1,0 +1,23 @@
+# environment secrets
+.env
+*.env
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# node
+node_modules/
+.DS_Store
+
+# build output
+dist/
+build/
+.local-run/
+data2/sessions/
+dummy-upload files/
+frontend/public/fonts/Biofolio*
+frontend/public/fonts/Fontspring-DEMO-*

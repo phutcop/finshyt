@@ -1,0 +1,116 @@
+.upload-page {
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+.upload-inner {
+  width: 100%;
+  max-width: 790px;
+}
+
+.upload-title {
+  max-width: 690px;
+  margin: 0 auto 1rem;
+  font-size: clamp(2.7rem, 4.6vw, 4.4rem);
+  line-height: 1.03;
+  text-align: center;
+}
+
+.upload-subtitle {
+  max-width: 530px;
+  margin: 0 auto 2.7rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.upload-surface {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  padding: clamp(1.3rem, 4vw, 2.5rem);
+  border: 1px dashed var(--border-strong);
+  border-radius: 24px;
+  background: var(--bg-card);
+  box-shadow: 0 18px 48px rgba(33, 40, 66, 0.055);
+}
+
+.upload-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 14px;
+  transition: background 0.15s ease;
+}
+
+.upload-picker .btn,
+.upload-preview-actions .btn,
+.upload-status .btn {
+  border-radius: 8px;
+}
+
+.upload-preview {
+  width: 100%;
+}
+
+.upload-preview-table-wrap {
+  max-height: 260px;
+  margin-bottom: 1rem;
+  overflow: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+}
+
+.upload-preview-table {
+  width: 100%;
+  min-width: 540px;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.upload-preview-table th,
+.upload-preview-table td {
+  padding: 0.7rem;
+  border-bottom: 1px solid var(--border-soft);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.upload-preview-table th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
+  font-weight: 700;
+}
+
+.upload-preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 700px) {
+  .upload-page {
+    padding-top: 3rem !important;
+  }
+  .upload-title {
+    font-size: clamp(2.5rem, 10vw, 3.3rem);
+  }
+  .upload-surface {
+    min-height: 220px;
+  }
+  .upload-picker {
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  .upload-picker .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
