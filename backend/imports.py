@@ -104,30 +104,38 @@ def _parse_expenses(frame: pd.DataFrame, mapped: dict[str, str]) -> tuple[list[d
     missing = required - set(mapped)
     if missing:
         raise HTTPException(422, f"Missing required mapped columns: {', '.join(sorted(missing))}")
+    dates = pd.to_datetime(frame[mapped["date"]], errors="coerce", format="mixed").dt.strftime("%Y-%m-%d").to_numpy()
+    raw_amounts = frame[mapped["amount"]].fillna("").astype(str).str.replace(r"[$,]", "", regex=True)
+    amounts = pd.to_numeric(raw_amounts, errors="coerce").to_numpy()
+    descriptions = frame[mapped["description"]].fillna("").astype(str).str.strip().to_numpy()
+
+    def strings(field: str, default: str = ""):
+        if field not in mapped:
+            return [default] * len(frame)
+        return frame[mapped[field]].fillna("").astype(str).str.strip().to_numpy()
+
+    vendors = strings("vendor")
+    departments = strings("department", "Unassigned")
+    categories = strings("category")
     rows, errors = [], []
-    for index, row in frame.iterrows():
-        try:
-            date = pd.to_datetime(row[mapped["date"]], errors="raise").date().isoformat()
-            amount = float(str(row[mapped["amount"]]).replace(",", "").replace("$", ""))
-            if not math.isfinite(amount) or amount < 0:
-                raise ValueError("amount must be a non-negative number")
-            description = str(row[mapped["description"]]).strip()
-            if not description or pd.isna(row[mapped["description"]]):
-                raise ValueError("description is required")
-            vendor_value = row.get(mapped.get("vendor"), "")
-            department_value = row.get(mapped.get("department"), "Unassigned")
-            category_value = row.get(mapped.get("category"), "")
-            vendor = "" if pd.isna(vendor_value) else str(vendor_value).strip()
-            department = "Unassigned" if pd.isna(department_value) else str(department_value).strip() or "Unassigned"
-            category = "" if pd.isna(category_value) else str(category_value).strip()
-            if not category or category.lower() == "nan":
-                category, confidence = _category(description, vendor)
-            else:
-                confidence = 1.0
-            rows.append({"date": date, "amount": round(amount, 2), "description": description, "vendor": vendor,
-                         "department": department, "category": category, "confidence": confidence})
-        except Exception as exc:
-            errors.append({"row": int(index) + 2, "reason": str(exc)})
+    for index, (date, amount, description, vendor, department, category) in enumerate(
+        zip(dates, amounts, descriptions, vendors, departments, categories)
+    ):
+        if pd.isna(date):
+            errors.append({"row": index + 2, "reason": "date is invalid"})
+            continue
+        if not math.isfinite(amount) or amount < 0:
+            errors.append({"row": index + 2, "reason": "amount must be a non-negative number"})
+            continue
+        if not description:
+            errors.append({"row": index + 2, "reason": "description is required"})
+            continue
+        if not category:
+            category, confidence = _category(description, vendor)
+        else:
+            confidence = 1.0
+        rows.append({"date": date, "amount": round(float(amount), 2), "description": description, "vendor": vendor,
+                     "department": department or "Unassigned", "category": category, "confidence": confidence})
     return rows, errors
 
 
