@@ -167,7 +167,7 @@ def _duplicates(kind: str, rows: list[dict]) -> set[int]:
 
 
 @router.post("/preview")
-async def preview_import(
+def preview_import(
     kind: str = Form(...), file: UploadFile = File(...), mapping: str | None = Form(None)
 ):
     if kind not in {"expenses", "budgets"}:
@@ -178,7 +178,7 @@ async def preview_import(
         raise HTTPException(422, "mapping must be valid JSON") from exc
     if not isinstance(supplied, dict):
         raise HTTPException(422, "mapping must be a JSON object")
-    contents = await file.read(10_000_001)
+    contents = file.file.read(10_000_001)
     if len(contents) > 10_000_000:
         raise HTTPException(413, "This demo accepts files up to 10 MB.")
     frame = _read_file(contents, file.filename or "")
